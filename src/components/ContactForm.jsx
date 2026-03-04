@@ -67,16 +67,42 @@ const ContactForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (
+
+        let isValid = true;
+
+        if (name.trim() === "") {
+            setNameError("Name is required");
+            isValid = false;
+        } else if (name.trim().split(/\s+/).length < 2) {
+            setNameError("Please enter your full name");
+            isValid = false;
+        }
+
+        if (phone.trim() === "") {
+            setPhoneError("Phone number is required");
+            isValid = false;
+        }
+
+        if (email.trim() === "") {
+            setEmailError("Email is required");
+            isValid = false;
+        }
+
+        if (message.trim() === "") {
+            setMessageError("Message is required");
+            isValid = false;
+        }
+
+        if (!isValid ||
             nameError !== "valid" ||
             phoneError !== "valid" ||
             emailError !== "valid" ||
             messageError !== "valid"
         ) {
-            alert("Please fix the errors before submitting");
             return;
         }
 
+        // إذا كان كل شيء سليم
         setIsSubmaited(true);
         // إعادة تعيين الحقول
         setName(""); setPhone(""); setEmail(""); setMessage("");
